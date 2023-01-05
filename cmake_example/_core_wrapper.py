@@ -1,9 +1,12 @@
-from ._core import verify as _verify, VerificationStatus
-import cbor2
-from dataclasses import dataclass
 import ctypes
-import typing
 import datetime
+import typing
+from dataclasses import dataclass
+
+import cbor2
+
+from ._core import VerificationStatus
+from ._core import verify as _verify
 
 
 @dataclass

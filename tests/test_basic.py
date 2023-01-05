@@ -1,15 +1,18 @@
-import cmake_example
 import os
 from datetime import datetime
 
+import cmake_example
+
 
 def get_content_from_file(path):
-    with open(path, "r") as f:
+    with open(path) as f:
         return f.read()
+
 
 def get_content_from_binary_file(path):
     with open(path, "rb") as f:
         return f.read()
+
 
 PATH_TO_SAMPLE_DATA = os.path.join(
     os.path.dirname(__file__),
@@ -98,12 +101,13 @@ def test_verification_failure2():
     assert res.quote_status == cmake_example.VerificationStatus.STATUS_OK
     assert res.enclave_report is not None
 
+
 def test_verification_expired():
     """
     Test case when collateral is not yet valid
     """
     dd = d.copy()
-    dd['expiration_date'] = datetime.fromisoformat('2018-01-01')
+    dd["expiration_date"] = datetime.fromisoformat("2018-01-01")
     res = cmake_example.verify(**dd)
 
     assert not res.ok
@@ -112,8 +116,7 @@ def test_verification_expired():
         == cmake_example.VerificationStatus.STATUS_SGX_CRL_EXPIRED
     )
     assert (
-        res.tcb_info_status
-        == cmake_example.VerificationStatus.STATUS_SGX_CRL_EXPIRED
+        res.tcb_info_status == cmake_example.VerificationStatus.STATUS_SGX_CRL_EXPIRED
     )
     assert (
         res.qe_identity_status
@@ -122,12 +125,13 @@ def test_verification_expired():
     assert res.quote_status == cmake_example.VerificationStatus.STATUS_OK
     assert res.enclave_report is not None
 
+
 def test_verification_expired2():
     """
     Test case when collateral has expired
     """
     dd = d.copy()
-    dd['expiration_date'] = datetime.fromisoformat('2030-01-01')
+    dd["expiration_date"] = datetime.fromisoformat("2030-01-01")
     res = cmake_example.verify(**dd)
 
     assert not res.ok

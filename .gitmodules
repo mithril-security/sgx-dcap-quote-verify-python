@@ -3,5 +3,5 @@
     url = https://github.com/pybind/pybind11.git
     branch = master
 [submodule "SGXDataCenterAttestationPrimitives"]
-	path = SGXDataCenterAttestationPrimitives
-	url = git@github.com:mithril-security/SGXDataCenterAttestationPrimitives.git
+    path = SGXDataCenterAttestationPrimitives
+    url = git@github.com:mithril-security/SGXDataCenterAttestationPrimitives.git
