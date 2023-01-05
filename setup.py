@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 from setuptools import Extension, setup
+from setuptools.command.build import build  # type: ignore[import]
 from setuptools.command.build_ext import build_ext
 
 # Convert distutils Windows platform specifiers to CMake -A arguments
@@ -54,9 +55,6 @@ class CMakeBuild(build_ext):
         # (needed e.g. to build for ARM OSx on conda-forge)
         if "CMAKE_ARGS" in os.environ:
             cmake_args += [item for item in os.environ["CMAKE_ARGS"].split(" ") if item]
-
-        # In this example, we pass in the version to C++. You might not need to.
-        cmake_args += [f"-DEXAMPLE_VERSION_INFO={self.distribution.get_version()}"]  # type: ignore[attr-defined]
 
         if self.compiler.compiler_type != "msvc":
             # Using Ninja-build since it a) is available as a wheel and b)
@@ -124,6 +122,17 @@ class CMakeBuild(build_ext):
         )
 
 
+def build_attestation_lib() -> None:
+    path_to_script = os.path.join(os.path.dirname(__file__), 'build_qvl.sh')
+    subprocess.run(["bash", path_to_script], check=True)
+
+
+class BuildPackage(build):  # type: ignore[misc]
+    def run(self) -> None:
+        build_attestation_lib()
+        super().run()
+
+
 # The information here can also be placed in setup.cfg - better separation of
 # logic and declaration, and simpler if you include description/version in a file.
 setup(
@@ -133,8 +142,8 @@ setup(
     author_email="dean0x7d@gmail.com",
     description="A test project using pybind11 and CMake",
     long_description="",
-    ext_modules=[CMakeExtension("cmake_example")],
-    cmdclass={"build_ext": CMakeBuild},
+    ext_modules=[CMakeExtension("cmake_example._core")],
+    cmdclass={"build_ext": CMakeBuild, "build": BuildPackage},
     zip_safe=False,
     extras_require={"test": ["pytest>=6.0"]},
     python_requires=">=3.7",
