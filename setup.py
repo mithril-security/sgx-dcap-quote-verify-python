@@ -145,6 +145,8 @@ setup(
     ext_modules=[CMakeExtension("cmake_example._core")],
     cmdclass={"build_ext": CMakeBuild, "build": BuildPackage},
     zip_safe=False,
+    packages=['cmake_example'],
     extras_require={"test": ["pytest>=6.0"]},
     python_requires=">=3.7",
+    install_requires=["cbor2~=5.0.0"]
 )

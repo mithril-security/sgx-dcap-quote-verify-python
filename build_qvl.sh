@@ -40,12 +40,15 @@ pushd cmake-build-release
 cmake ../ -DBUILD_DOCS=$BUILD_DOCS \
           -DBUILD_ATTESTATION_APP=$BUILD_ATTESTATION_APP \
           -DBUILD_TESTS=$BUILD_TESTS \
-          -DCMAKE_C_COMPILER=clang \
-          -DCMAKE_CXX_COMPILER=clang++ \
+          -DCMAKE_C_COMPILER=gcc \
+          -DCMAKE_CXX_COMPILER=g++ \
           -DCMAKE_BUILD_TYPE=Release \
           -G "CodeBlocks - Unix Makefiles" \
+          --graphviz=graph/test.dot \
           "$@"
-make -j6 AttestationLibraryStatic AttestationCommonsStatic AttestationParsersStatic AttestationLibraryStatic
+make -j20 AttestationLibraryStatic AttestationCommonsStatic AttestationParsersStatic AttestationLibraryStatic
 make install
  
 popd
+
+# dot -Tpng -o foo.png /workspaces/yassine/draft/SGXDataCenterAttestationPrimitives/QuoteVerification/QVL/Src/cmake-build-release/graph/test.dot
