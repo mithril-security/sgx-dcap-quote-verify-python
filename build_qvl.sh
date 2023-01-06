@@ -28,16 +28,19 @@
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 set -e
-
+set -x 
 cd SGXDataCenterAttestationPrimitives/QuoteVerification/QVL/Src/
+
+conan profile detect -f
+conan install . --output-folder=cmake-build-release --build=missing
 
 BUILD_ATTESTATION_APP=OFF
 BUILD_TESTS=OFF
 BUILD_DOCS=OFF
 
-mkdir -p cmake-build-release
 pushd cmake-build-release 
-cmake ../ -DBUILD_DOCS=$BUILD_DOCS \
+cmake ../ -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake \
+          -DBUILD_DOCS=$BUILD_DOCS \
           -DBUILD_ATTESTATION_APP=$BUILD_ATTESTATION_APP \
           -DBUILD_TESTS=$BUILD_TESTS \
           -DCMAKE_C_COMPILER=gcc \
