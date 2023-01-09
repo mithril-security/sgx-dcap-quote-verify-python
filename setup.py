@@ -116,7 +116,9 @@ class CMakeBuild(build_ext):
             build_temp.mkdir(parents=True)
 
         subprocess.run(
-            ["conan",  "install", ext.sourcedir, "--output-folder=.", "--build=missing"], cwd=build_temp, check=True
+            ["conan", "install", ext.sourcedir, "--output-folder=.", "--build=missing"],
+            cwd=build_temp,
+            check=True,
         )
         subprocess.run(
             ["cmake", ext.sourcedir] + cmake_args, cwd=build_temp, check=True
@@ -127,7 +129,7 @@ class CMakeBuild(build_ext):
 
 
 def build_attestation_lib() -> None:
-    path_to_script = os.path.join(os.path.dirname(__file__), 'build_qvl.sh')
+    path_to_script = os.path.join(os.path.dirname(__file__), "build_qvl.sh")
     subprocess.run(["bash", path_to_script], check=True)
 
 
@@ -149,8 +151,8 @@ setup(
     ext_modules=[CMakeExtension("cmake_example._core")],
     cmdclass={"build_ext": CMakeBuild, "build": BuildPackage},
     zip_safe=False,
-    packages=['cmake_example'],
+    packages=["cmake_example"],
     extras_require={"test": ["pytest>=6.0"]},
     python_requires=">=3.7",
-    install_requires=["cbor2~=5.0.0"]
+    install_requires=["cbor2~=5.0.0"],
 )

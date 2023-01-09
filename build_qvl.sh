@@ -28,7 +28,7 @@
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 set -e
-set -x 
+set -x
 cd SGXDataCenterAttestationPrimitives/QuoteVerification/QVL/Src/
 
 conan profile detect -f
@@ -38,7 +38,7 @@ BUILD_ATTESTATION_APP=OFF
 BUILD_TESTS=OFF
 BUILD_DOCS=OFF
 
-pushd cmake-build-release 
+pushd cmake-build-release
 cmake ../ -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake \
           -DBUILD_DOCS=$BUILD_DOCS \
           -DBUILD_ATTESTATION_APP=$BUILD_ATTESTATION_APP \
@@ -51,7 +51,7 @@ cmake ../ -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake \
           "$@"
 make -j20 AttestationLibraryStatic AttestationCommonsStatic AttestationParsersStatic AttestationLibraryStatic
 make install
- 
+
 popd
 
 # dot -Tpng -o foo.png /workspaces/yassine/draft/SGXDataCenterAttestationPrimitives/QuoteVerification/QVL/Src/cmake-build-release/graph/test.dot
