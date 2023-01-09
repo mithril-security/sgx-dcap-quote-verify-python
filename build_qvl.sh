@@ -32,6 +32,9 @@ set -x
 cd SGXDataCenterAttestationPrimitives/QuoteVerification/QVL/Src/
 
 conan profile detect -f
+# update the profile to enable C++17
+sed -i 's/compiler\.cppstd.*/compiler.cppstd=17/g' "`conan profile path default`"
+
 conan install . --output-folder=cmake-build-release --build=missing
 
 BUILD_ATTESTATION_APP=OFF
