@@ -37,7 +37,7 @@ conan profile detect -f
 # but there is no cross platform (linux + osx) way to
 # make it work, so we use perl instead
 # perl -pe's/compiler\.cppstd.*/compiler.cppstd=17/g' "`conan profile path default`"
-sed -i 's/compiler\.cppstd.*/compiler.cppstd=17/g' "`conan profile path default`"
+sed 's/compiler\.cppstd.*/compiler.cppstd=17/g' "`conan profile path default`" > "`conan profile path default`.new"
 
 conan install . --output-folder=cmake-build-release --build=missing
 
