@@ -1,0 +1,10 @@
+on:
+  push:
+    - main
+  workflow_dispatch:
+
+jobs:
+  test: 
+    steps:
+      - name: Debug via SSH
+        uses: luchihoratiu/debug-via-ssh@v1.1
