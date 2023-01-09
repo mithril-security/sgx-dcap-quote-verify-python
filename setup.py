@@ -2,11 +2,19 @@ import os
 import re
 import subprocess
 import sys
+import platform
 from pathlib import Path
 
 from setuptools import Extension, setup
 from setuptools.command.build import build  # type: ignore[import]
 from setuptools.command.build_ext import build_ext
+
+SUPPORTED_PLATFORMS = {"LINUX", "WINDOWS", "DARWIN"}
+PLATFORM = platform.system().upper()
+if PLATFORM not in SUPPORTED_PLATFORMS:
+    print("The platform : {}".format(platform.system().lower()))
+    print("Building blindai client in your platform is not supported yet.")
+    exit(1)
 
 # Convert distutils Windows platform specifiers to CMake -A arguments
 PLAT_TO_CMAKE = {
@@ -130,7 +138,12 @@ class CMakeBuild(build_ext):
 
 def build_attestation_lib() -> None:
     path_to_script = os.path.join(os.path.dirname(__file__), "build_qvl.sh")
-    subprocess.run(["bash", path_to_script], check=True)
+    
+    if PLATFORM == "WINDOWS":
+        bash_bin = "C:\Program Files\Git\bin\bash.exe"
+    else:
+        bash_bin = "bash"
+    subprocess.run([bash_bin, path_to_script], check=True)
 
 
 class BuildPackage(build):  # type: ignore[misc]
