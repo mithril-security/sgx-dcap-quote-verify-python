@@ -140,7 +140,7 @@ def build_attestation_lib() -> None:
     path_to_script = os.path.join(os.path.dirname(__file__), "build_qvl.sh")
     
     if PLATFORM == "WINDOWS":
-        bash_bin = "C:\Program Files\Git\bin\bash.exe"
+        bash_bin = r"C:\Program Files\Git\bin\bash.exe"
     else:
         bash_bin = "bash"
     subprocess.run([bash_bin, path_to_script], check=True)
