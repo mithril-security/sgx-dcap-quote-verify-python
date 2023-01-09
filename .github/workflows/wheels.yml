@@ -54,12 +54,6 @@ jobs:
         CIBW_SKIP: "*-win32 *-manylinux_i686 *-musllinux_i686"
         CIBW_ARCHS_MACOS: auto universal2
 
-    - name: Debug via SSH
-      uses: luchihoratiu/debug-via-ssh@v1.1
-      with:
-        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-        SSH_PASS: ${{ secrets.SSH_PASS }}
-
     - name: Verify clean directory
       run: git diff --exit-code
       shell: bash

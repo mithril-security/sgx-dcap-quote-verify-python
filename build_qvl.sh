@@ -36,7 +36,8 @@ conan profile detect -f
 # we'd like to use sed to edit the config
 # but there is no cross platform (linux + osx) way to
 # make it work, so we use perl instead
-perl -i -pe's/compiler\.cppstd.*/compiler.cppstd=17/g' "`conan profile path default`"
+# perl -pe's/compiler\.cppstd.*/compiler.cppstd=17/g' "`conan profile path default`"
+sed -i 's/compiler\.cppstd.*/compiler.cppstd=17/g' "`conan profile path default`"
 
 conan install . --output-folder=cmake-build-release --build=missing
 
@@ -49,14 +50,10 @@ cmake ../ -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake \
           -DBUILD_DOCS=$BUILD_DOCS \
           -DBUILD_ATTESTATION_APP=$BUILD_ATTESTATION_APP \
           -DBUILD_TESTS=$BUILD_TESTS \
-          -DCMAKE_C_COMPILER=gcc \
-          -DCMAKE_CXX_COMPILER=g++ \
           -DCMAKE_BUILD_TYPE=Release \
-          -G "CodeBlocks - Unix Makefiles" \
-          --graphviz=graph/test.dot \
           "$@"
-make -j20 AttestationLibraryStatic AttestationCommonsStatic AttestationParsersStatic AttestationLibraryStatic
-make install
+cmake --build . --target AttestationLibraryStatic AttestationCommonsStatic AttestationParsersStatic AttestationLibraryStatic
+cmake --build . --target install
 
 popd
 
