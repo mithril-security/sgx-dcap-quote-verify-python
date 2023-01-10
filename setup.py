@@ -143,11 +143,11 @@ class BuildPackage(build):  # type: ignore[misc]
 # logic and declaration, and simpler if you include description/version in a file.
 setup(
     name="sgx-dcap-quote-verify-python",
-    version="0.0.1",
+    version="0.0.3",
     author="Dean Moldovan",
     author_email="dean0x7d@gmail.com",
     description="A test project using pybind11 and CMake",
-    long_description="",
+    # long_description="",
     ext_modules=[CMakeExtension("sgx_dcap_quote_verify._core")],
     cmdclass={"build_ext": CMakeBuild, "build": BuildPackage},
     zip_safe=False,
