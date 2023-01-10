@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-import cmake_example
+import sgx_dcap_quote_verify
 
 
 def get_content_from_file(path):
@@ -45,13 +45,13 @@ def test_verification_passing():
     """
     Valid dummy test quote
     """
-    res = cmake_example.verify(**d)
+    res = sgx_dcap_quote_verify.verify(**d)
 
     assert res.ok
-    assert res.pck_certificate_status == cmake_example.VerificationStatus.STATUS_OK
-    assert res.tcb_info_status == cmake_example.VerificationStatus.STATUS_OK
-    assert res.qe_identity_status == cmake_example.VerificationStatus.STATUS_OK
-    assert res.quote_status == cmake_example.VerificationStatus.STATUS_OK
+    assert res.pck_certificate_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+    assert res.tcb_info_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+    assert res.qe_identity_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+    assert res.quote_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
 
     assert res.enclave_report.mr_enclave == 32 * b"\x00"
 
@@ -65,14 +65,14 @@ def test_verification_failure():
     # corrupt the quote
     quote[0:10] = 10 * b"\xff"
     dd["quote"] = bytes(quote)
-    res = cmake_example.verify(**dd)
+    res = sgx_dcap_quote_verify.verify(**dd)
     assert not res.ok
-    assert res.pck_certificate_status == cmake_example.VerificationStatus.STATUS_OK
-    assert res.tcb_info_status == cmake_example.VerificationStatus.STATUS_OK
-    assert res.qe_identity_status == cmake_example.VerificationStatus.STATUS_OK
+    assert res.pck_certificate_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+    assert res.tcb_info_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+    assert res.qe_identity_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
     assert (
         res.quote_status
-        == cmake_example.VerificationStatus.STATUS_UNSUPPORTED_QUOTE_FORMAT
+        == sgx_dcap_quote_verify.VerificationStatus.STATUS_UNSUPPORTED_QUOTE_FORMAT
     )
     assert res.enclave_report is None
 
@@ -83,22 +83,22 @@ def test_verification_failure2():
     """
     dd = d.copy()
     dd["trusted_root_ca_certificate"] = ""
-    res = cmake_example.verify(**dd)
+    res = sgx_dcap_quote_verify.verify(**dd)
 
     assert not res.ok
     assert (
         res.pck_certificate_status
-        == cmake_example.VerificationStatus.STATUS_TRUSTED_ROOT_CA_UNSUPPORTED_FORMAT
+        == sgx_dcap_quote_verify.VerificationStatus.STATUS_TRUSTED_ROOT_CA_UNSUPPORTED_FORMAT
     )
     assert (
         res.tcb_info_status
-        == cmake_example.VerificationStatus.STATUS_UNSUPPORTED_CERT_FORMAT
+        == sgx_dcap_quote_verify.VerificationStatus.STATUS_UNSUPPORTED_CERT_FORMAT
     )
     assert (
         res.qe_identity_status
-        == cmake_example.VerificationStatus.STATUS_UNSUPPORTED_CERT_FORMAT
+        == sgx_dcap_quote_verify.VerificationStatus.STATUS_UNSUPPORTED_CERT_FORMAT
     )
-    assert res.quote_status == cmake_example.VerificationStatus.STATUS_OK
+    assert res.quote_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
     assert res.enclave_report is not None
 
 
@@ -108,21 +108,21 @@ def test_verification_expired():
     """
     dd = d.copy()
     dd["expiration_date"] = datetime.fromisoformat("2018-01-01")
-    res = cmake_example.verify(**dd)
+    res = sgx_dcap_quote_verify.verify(**dd)
 
     assert not res.ok
     assert (
         res.pck_certificate_status
-        == cmake_example.VerificationStatus.STATUS_SGX_CRL_EXPIRED
+        == sgx_dcap_quote_verify.VerificationStatus.STATUS_SGX_CRL_EXPIRED
     )
     assert (
-        res.tcb_info_status == cmake_example.VerificationStatus.STATUS_SGX_CRL_EXPIRED
+        res.tcb_info_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_SGX_CRL_EXPIRED
     )
     assert (
         res.qe_identity_status
-        == cmake_example.VerificationStatus.STATUS_SGX_CRL_EXPIRED
+        == sgx_dcap_quote_verify.VerificationStatus.STATUS_SGX_CRL_EXPIRED
     )
-    assert res.quote_status == cmake_example.VerificationStatus.STATUS_OK
+    assert res.quote_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
     assert res.enclave_report is not None
 
 
@@ -132,20 +132,20 @@ def test_verification_expired2():
     """
     dd = d.copy()
     dd["expiration_date"] = datetime.fromisoformat("2030-01-01")
-    res = cmake_example.verify(**dd)
+    res = sgx_dcap_quote_verify.verify(**dd)
 
     assert not res.ok
     assert (
         res.pck_certificate_status
-        == cmake_example.VerificationStatus.STATUS_SGX_PCK_CERT_CHAIN_EXPIRED
+        == sgx_dcap_quote_verify.VerificationStatus.STATUS_SGX_PCK_CERT_CHAIN_EXPIRED
     )
     assert (
         res.tcb_info_status
-        == cmake_example.VerificationStatus.STATUS_SGX_SIGNING_CERT_CHAIN_EXPIRED
+        == sgx_dcap_quote_verify.VerificationStatus.STATUS_SGX_SIGNING_CERT_CHAIN_EXPIRED
     )
     assert (
         res.qe_identity_status
-        == cmake_example.VerificationStatus.STATUS_SGX_SIGNING_CERT_CHAIN_EXPIRED
+        == sgx_dcap_quote_verify.VerificationStatus.STATUS_SGX_SIGNING_CERT_CHAIN_EXPIRED
     )
-    assert res.quote_status == cmake_example.VerificationStatus.STATUS_OK
+    assert res.quote_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
     assert res.enclave_report is not None

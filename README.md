@@ -1,4 +1,4 @@
-# cmake_example for pybind11
+# sgx-dcap-quote-verify-python
 
 [![Gitter][gitter-badge]][gitter-link]
 
@@ -11,15 +11,14 @@
 
 [gitter-badge]:            https://badges.gitter.im/pybind/Lobby.svg
 [gitter-link]:             https://gitter.im/pybind/Lobby
-[actions-badge]:           https://github.com/pybind/cmake_example/workflows/Tests/badge.svg
-[actions-conda-link]:      https://github.com/pybind/cmake_example/actions?query=workflow%3A%22Conda
-[actions-conda-badge]:     https://github.com/pybind/cmake_example/workflows/Conda/badge.svg
-[actions-pip-link]:        https://github.com/pybind/cmake_example/actions?query=workflow%3A%22Pip
-[actions-pip-badge]:       https://github.com/pybind/cmake_example/workflows/Pip/badge.svg
-[actions-wheels-link]:     https://github.com/pybind/cmake_example/actions?query=workflow%3AWheels
-[actions-wheels-badge]:    https://github.com/pybind/cmake_example/workflows/Wheels/badge.svg
-[appveyor-link]:           https://ci.appveyor.com/project/dean0x7d/cmake-example/branch/master
-[appveyor-badge]:          https://ci.appveyor.com/api/projects/status/57nnxfm4subeug43/branch/master?svg=true
+[actions-badge]:           https://github.com/mithril-security/sgx-dcap-quote-verify-python/workflows/Tests/badge.svg
+[actions-conda-link]:      https://github.com/mithril-security/sgx-dcap-quote-verify-python/actions?query=workflow%3A%22Conda
+[actions-conda-badge]:     https://github.com/mithril-security/sgx-dcap-quote-verify-python/workflows/Conda/badge.svg
+[actions-pip-link]:        https://github.com/mithril-security/sgx-dcap-quote-verify-python/actions?query=workflow%3A%22Pip
+[actions-pip-badge]:       https://github.com/mithril-security/sgx-dcap-quote-verify-python/workflows/Pip/badge.svg
+[actions-wheels-link]:     https://github.com/mithril-security/sgx-dcap-quote-verify-python/actions?query=workflow%3AWheels
+[actions-wheels-badge]:    https://github.com/mithril-security/sgx-dcap-quote-verify-python/workflows/Wheels/badge.svg
+
 
 An example [pybind11](https://github.com/pybind/pybind11) module built with a
 CMake-based build system. This is useful for C++ codebases that have an
@@ -53,8 +52,8 @@ Just clone this repository and pip install. Note the `--recursive` option which 
 needed for the pybind11 submodule:
 
 ```bash
-git clone --recursive https://github.com/pybind/cmake_example.git
-pip install ./cmake_example
+git clone --recursive https://github.com/pybind/sgx-dcap-quote-verify-python.git
+pip install ./sgx-dcap-quote-verify-python
 ```
 
 With the `setup.py` file included in this example, the `pip install` command will
@@ -70,7 +69,7 @@ the extension module to generate beautiful documentation in a variety formats.
 The following command generates HTML-based reference documentation; for other
 formats please refer to the Sphinx manual:
 
- - `cd cmake_example/docs`
+ - `cd sgx-dcap-quote-verify-python/docs`
  - `make html`
 
 
@@ -84,8 +83,8 @@ terms and conditions of this license.
 ## Test call
 
 ```python
-import cmake_example
-cmake_example.add(1, 2)
+import sgx_dcap_quote_verify
+sgx_dcap_quote_verify.add(1, 2)
 ```
 
 [`cibuildwheel`]:    https://cibuildwheel.readthedocs.io
