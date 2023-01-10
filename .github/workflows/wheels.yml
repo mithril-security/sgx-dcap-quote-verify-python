@@ -36,9 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # os: [ubuntu-latest]
-        os: [macos-latest]
-        # os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
 
     steps:
     - uses: actions/checkout@v3
@@ -47,10 +45,13 @@ jobs:
 
     - uses: pypa/cibuildwheel@v2.11.3
       env:
-        # Skip 32-bit builds
-        # The QVL does not support 32-bit architectures
+        # Only building for :
+        # - Linux x86_64 (manylinux + musllinux)
+        # - Mac OS x86_64
+
+        # Skip 32-bit builds (Intel QVL does not support 32-bit architectures)
         CIBW_SKIP: "*-win32 *-manylinux_i686 *-musllinux_i686"
-        CIBW_ARCHS_MACOS: auto universal2
+        CIBW_ARCHS_MACOS: x86_64
 
     - name: Verify clean directory
       run: git diff --exit-code
