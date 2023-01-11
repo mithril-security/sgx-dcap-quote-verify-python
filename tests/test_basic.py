@@ -48,7 +48,9 @@ def test_verification_passing():
     res = sgx_dcap_quote_verify.verify(**d)
 
     assert res.ok
-    assert res.pck_certificate_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+    assert (
+        res.pck_certificate_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+    )
     assert res.tcb_info_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
     assert res.qe_identity_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
     assert res.quote_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
@@ -67,7 +69,9 @@ def test_verification_failure():
     dd["quote"] = bytes(quote)
     res = sgx_dcap_quote_verify.verify(**dd)
     assert not res.ok
-    assert res.pck_certificate_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+    assert (
+        res.pck_certificate_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+    )
     assert res.tcb_info_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
     assert res.qe_identity_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
     assert (
@@ -116,7 +120,8 @@ def test_verification_expired():
         == sgx_dcap_quote_verify.VerificationStatus.STATUS_SGX_CRL_EXPIRED
     )
     assert (
-        res.tcb_info_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_SGX_CRL_EXPIRED
+        res.tcb_info_status
+        == sgx_dcap_quote_verify.VerificationStatus.STATUS_SGX_CRL_EXPIRED
     )
     assert (
         res.qe_identity_status
