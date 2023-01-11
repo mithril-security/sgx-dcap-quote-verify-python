@@ -155,7 +155,7 @@ setup(
     cmdclass={"build_ext": CMakeBuild, "build": BuildPackage},
     zip_safe=False,
     packages=["sgx_dcap_quote_verify"],
-    package_data={"sgx_dcap_quote_verify": ["py.typed", "_core.pyi"]}
+    package_data={"sgx_dcap_quote_verify": ["py.typed", "_core.pyi"]},
     extras_require={"test": ["pytest>=6.0"]},
     python_requires=">=3.7",
     install_requires=["cbor2~=5.0.0"],
