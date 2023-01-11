@@ -50,7 +50,7 @@ jobs:
         # - Mac OS x86_64
 
         # Skip 32-bit builds (Intel QVL does not support 32-bit architectures)
-        CIBW_BUILD: "cp38-manylinux_x86_64"
+        CIBW_BUILD: "cp310-manylinux_x86_64"
         CIBW_SKIP: "*-win32 *-manylinux_i686 *-musllinux_i686"
         CIBW_ARCHS_MACOS: x86_64
 
