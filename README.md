@@ -29,7 +29,8 @@ qe_identity = Path("/path/to/qe_identity.json").read_text()
 expiration_date = datetime.now()
 
 # Use the package to check the validity of the quote
-attestation_result = sgx_dcap_quote_verify.verify(trusted_root_ca_certificate,
+attestation_result = sgx_dcap_quote_verify.verify(
+    trusted_root_ca_certificate,
     pck_certificate,
     pck_signing_chain,
     root_ca_crl,
@@ -38,13 +39,26 @@ attestation_result = sgx_dcap_quote_verify.verify(trusted_root_ca_certificate,
     tcb_signing_chain,
     quote,
     qe_identity,
-    expiration_date)
+    expiration_date,
+)
 
 assert attestation_result.ok
-assert attestation_result.pck_certificate_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
-assert attestation_result.tcb_info_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
-assert attestation_result.qe_identity_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
-assert attestation_result.quote_status == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+assert (
+    attestation_result.pck_certificate_status
+    == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+)
+assert (
+    attestation_result.tcb_info_status
+    == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+)
+assert (
+    attestation_result.qe_identity_status
+    == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+)
+assert (
+    attestation_result.quote_status
+    == sgx_dcap_quote_verify.VerificationStatus.STATUS_OK
+)
 
 # The attestation result contains the report data, which includes the MR_ENCLAVE
 print("mr_enclave =", attestation_result.enclave_report.mr_enclave)
@@ -54,7 +68,7 @@ print("mr_enclave =", attestation_result.enclave_report.mr_enclave)
 
 ## License
 
-The source code of the binding is provided under Apache-2.0 license. 
+The source code of the binding is provided under Apache-2.0 license.
 
 This software also uses the SGX Quote Verification Library, which is licensed under [BSD license](https://github.com/mithril-security/SGXDataCenterAttestationPrimitives/blob/master/License.txt).
 Distribution of the software as a whole, including the external library, may be subject to the terms of the external library's license.

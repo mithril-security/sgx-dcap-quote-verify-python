@@ -148,9 +148,11 @@ setup(
     author_email="contact@mithrilsecurity.io",
     license="Apache-2.0",
     description="Python package to verify Intel SGX ECDSA-based quotes",
-    long_description= (Path(__file__).parent / "README.md").read_text(),
-    long_description_content_type = 'text/markdown; charset=UTF-8; variant=GFM',
-    project_urls = { 'Source': 'https://github.com/mithril-security/sgx-dcap-quote-verify-python' } ,
+    long_description=(Path(__file__).parent / "README.md").read_text(),
+    long_description_content_type="text/markdown; charset=UTF-8; variant=GFM",
+    project_urls={
+        "Source": "https://github.com/mithril-security/sgx-dcap-quote-verify-python"
+    },
     ext_modules=[CMakeExtension("sgx_dcap_quote_verify._core")],
     cmdclass={"build_ext": CMakeBuild, "build": BuildPackage},
     zip_safe=False,

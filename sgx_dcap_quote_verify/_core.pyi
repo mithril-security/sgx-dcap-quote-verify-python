@@ -1,5 +1,5 @@
 from __future__ import annotations
-import ._core
+import sgx_dcap_quote_verify._core
 import typing
 import datetime
 
