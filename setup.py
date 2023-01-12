@@ -143,7 +143,7 @@ class BuildPackage(build):  # type: ignore[misc]
 # logic and declaration, and simpler if you include description/version in a file.
 setup(
     name="sgx-dcap-quote-verify-python",
-    version="0.0.1",
+    version="0.0.2",
     author="Mithril Security",
     author_email="contact@mithrilsecurity.io",
     license="Apache-2.0",
@@ -160,5 +160,5 @@ setup(
     package_data={"sgx_dcap_quote_verify": ["py.typed", "_core.pyi"]},
     extras_require={"test": ["pytest>=6.0"]},
     python_requires=">=3.7",
-    install_requires=["cbor2~=5.0.0"],
+    install_requires=["cbor2~=5.0"],
 )
