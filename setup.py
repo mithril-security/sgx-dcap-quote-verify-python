@@ -143,7 +143,7 @@ class BuildPackage(build):  # type: ignore[misc]
 # logic and declaration, and simpler if you include description/version in a file.
 setup(
     name="sgx-dcap-quote-verify-python",
-    version="0.0.2",
+    version="0.0.3",
     author="Mithril Security",
     author_email="contact@mithrilsecurity.io",
     license="Apache-2.0",
